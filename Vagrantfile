@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-    config.vm.define :ericsson_test do |lv4_config|
+    config.vm.define :ericssonTest do |lv4_config|
         lv4_config.vm.box = "precise32"
         lv4_config.vm.box_url = "http://files.vagrantup.com/precise32.box"
         lv4_config.ssh.forward_agent = true
@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
         lv4_config.vm.network :forwarded_port, guest: 80, host: 8888, auto_correct: true
         lv4_config.vm.network :forwarded_port, guest: 3306, host: 8889, auto_correct: true
         lv4_config.vm.network :forwarded_port, guest: 5432, host: 5433, auto_correct: true
-        lv4_config.vm.hostname = "ericsson_test"
+        lv4_config.vm.hostname = "ericssonTest"
         lv4_config.vm.synced_folder "www", "/var/www", {:mount_options => ['dmode=777','fmode=777']}
         lv4_config.vm.provision :shell, :inline => "echo \"Europe/London\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
 
