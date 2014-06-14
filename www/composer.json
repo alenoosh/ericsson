@@ -1,6 +1,10 @@
 {
+    "require-dev": {
+        "sebastian/phpcpd" : "*",
+        "phpunit/phpunit": "4.1.*"
+    },
     "require": {
-        "phpmd/phpmd" : "1.4.*",
-        "sebastian/phpcpd": "*"
+        "pdepend/pdepend" : "1.1.1",
+        "phpmd/phpmd" : "1.4.*"
     }
 }
