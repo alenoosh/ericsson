@@ -8,30 +8,38 @@ class DbModel
     {
     }
 
+    /*
+     * connectToDb: tries to connect to the specified database and if the database does not exist,
+     *              executes the available sql file to create the database and populate it with data
+     */
     public function connectToDb()
     {
-        $server   = 'localhost';
-        $user     = 'root';
-        $pass     = 'root';
-        $database = 'ericsson_test';
+        require('dbConfig.php');
 
-        // Check whether the database exists
-        $conn     = \mysqli_connect($server, $user, $pass);
-        $dbExists = \mysqli_select_db($conn, $database);
+        $conn     = \mysqli_connect(ERICSSON_SERVER, ERICSSON_MYSQL_USER, ERICSSON_MYSQL_PASS);
+        $dbExists = \mysqli_select_db($conn, ERICSSON_MYSQL_DB);
 
         if (!$dbExists) {
-            $sqlFile = 'ericsson_test.sql';
 
-            $command = 'mysql -h' . $server . ' -u' . $user . ' -p' . $pass . ' < ' . $sqlFile;
-            exec($command, $output = array(), $worked);
-            if ($worked == 0) {
-                $conn = \mysqli_connect($server, $user, $pass, $database);
+            $query = \file_get_contents('ericsson_test.sql');
+            $result = \mysqli_multi_query($conn, $query);
+            while (\mysqli_next_result($conn)) {
+                if (!\mysqli_more_results($conn)) {
+                    break;
+                }
+            }
+
+            if ($result) {
+                \mysqli_select_db($conn, ERICSSON_MYSQL_DB);
             }
         }
 
         return $conn;
     }
 
+    /*
+     * parseMsisdn: searches for mobile operator information of the given msisdn value
+     */
     public function parseMsisdn($msisdn)
     {
         $database = $this->connectToDb();

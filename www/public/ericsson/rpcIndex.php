@@ -1,5 +1,10 @@
 <?php
 
+    /*
+     * This is the RPC Server Script: It gets the request with an msisdn parameter and
+     * calls msisdnLookup method to return the mobile operator information of msisdn value
+     */
+
     require_once("NumberLookup.php");
 
     $lookup = new ericsson\test\NumberLookup();

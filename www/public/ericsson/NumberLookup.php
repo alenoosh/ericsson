@@ -10,6 +10,9 @@ class NumberLookup
     {
     }
 
+    /*
+     * parseMsisdn : calls parseMsisdn method of DbModel Class
+     */
     public function parseMsisdn($msisdn)
     {
         require_once('DbModel.php');
@@ -20,6 +23,10 @@ class NumberLookup
         return $result;
     }
 
+    /*
+     * msisdnLookup : returns an string of mobile operator information of
+     *                the given msisdn parameter
+     */
     public function msisdnLookup($method, $params)
     {
         $msisdn = $params[0]["msisdn"];
